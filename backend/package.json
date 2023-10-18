@@ -1,0 +1,33 @@
+{
+  "name": "fotexnet-hw-backend",
+  "version": "1.0.0",
+  "private": true,
+  "author": {
+    "name": "Káposzta Gergő",
+    "email": "kaposztag@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "ts-node ./prisma/prisma-generate.ts",
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "dev": "nodemon src/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.4.2",
+    "cors": "^2.8.5",
+    "express": "4.18.2",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.14",
+    "@types/express": "4.17.18",
+    "@types/node": "18.18.3",
+    "prisma": "5.4.2",
+    "ts-node": "10.9.1",
+    "typescript": "5.2.2"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
+}
