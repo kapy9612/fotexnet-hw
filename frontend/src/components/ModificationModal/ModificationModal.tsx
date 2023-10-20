@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 
-import { CustomModalType } from '@/utils/types';
+import { ModificationModalType } from '@/utils/types';
 
 const style = {
     position: 'absolute',
@@ -20,7 +22,23 @@ const style = {
     p: 3,
 };
 
-const ModificationModal = ({ open, setOpen, title, description, age }: any) => {
+export enum ModificationVariant {
+    ADD,
+    EDIT,
+}
+
+const ModificationModal = ({
+    open,
+    setOpen,
+    title,
+    setTitle,
+    variant,
+    description,
+    setDescription,
+    age,
+    setAge,
+    trigger,
+}: ModificationModalType) => {
     return (
         <Modal
             open={open}
@@ -30,19 +48,53 @@ const ModificationModal = ({ open, setOpen, title, description, age }: any) => {
         >
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {title}
+                    {variant === ModificationVariant.ADD
+                        ? 'Add new film'
+                        : 'Edit'}
                 </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 1 }}>
-                    {description}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 1 }}>
-                    Age limit: {age}
-                </Typography>
-                <Stack
-                    direction="row"
-                    spacing={1}
-                    style={{ marginTop: '1rem' }}
-                ></Stack>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        void trigger();
+                        setOpen(false);
+                    }}
+                >
+                    <Stack
+                        direction="column"
+                        spacing={2}
+                        style={{ marginTop: '1rem' }}
+                    >
+                        <TextField
+                            id="title"
+                            label="Title"
+                            variant="outlined"
+                            value={title}
+                            required
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <TextField
+                            label="Description"
+                            variant="outlined"
+                            multiline
+                            rows={4}
+                            value={description}
+                            required
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                        <TextField
+                            id="standard-basic"
+                            label="Age limit"
+                            type="number"
+                            variant="outlined"
+                            value={age}
+                            required
+                            onChange={(e) => setAge(Number(e.target.value))}
+                        />
+                        <Button variant="outlined" type="submit" fullWidth>
+                            Submit
+                        </Button>
+                    </Stack>
+                </form>
             </Box>
         </Modal>
     );

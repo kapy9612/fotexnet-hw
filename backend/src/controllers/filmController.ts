@@ -23,10 +23,22 @@ export default {
     }
   },
 
-  getAll: async (_req: Request, res: Response, next: NextFunction) => {
+  getAll: async (req: Request, res: Response, next: NextFunction) => {
+    const { age } = req.query;
+
     try {
-      const films = await filmService.getFilms();
+      const films = await filmService.getFilms(Number(age));
       res.status(200).json(films);
+    } catch (e) {
+      res.json(e);
+      next(e);
+    }
+  },
+
+  getAllAges: async (_req: Request, res: Response, next: NextFunction) => {
+    try {
+      const ages = await filmService.getAges();
+      res.status(200).json(ages);
     } catch (e) {
       res.json(e);
       next(e);

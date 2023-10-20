@@ -108,12 +108,3 @@ a {
         color-scheme: dark;
     }
 }
-
-.MuiCard-root {
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-}
-
-.MuiCard-root:hover {
-    transform: scale(1.03);
-}

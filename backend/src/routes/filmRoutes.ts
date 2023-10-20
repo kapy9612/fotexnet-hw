@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post("/", filmController.create);
 router.get("/", filmController.getAll);
+router.get("/age", filmController.getAllAges);
 router.get("/:id", filmController.getById);
 router.put("/:id", filmController.update);
 router.delete("/:id", filmController.delete);

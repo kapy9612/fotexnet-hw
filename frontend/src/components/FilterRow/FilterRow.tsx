@@ -10,17 +10,11 @@ import { InputLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
-import { useFilms } from '@/hooks/useFilms';
-import { removeDuplicates } from '@/utils/removeDuplicates';
+import { useAges } from '@/hooks/useAges';
 import { FilterRowType } from '@/utils/types';
 
 const FilterRow = ({ age, setAge, setOpen }: FilterRowType) => {
-    const films = useFilms();
-
-    const ages =
-        !films.isLoading && films.data
-            ? removeDuplicates(films.data!.flatMap((f) => f.age))
-            : null;
+    const { data } = useAges();
 
     const handleChange = (event: SelectChangeEvent) => {
         setAge(event.target.value);
@@ -28,7 +22,6 @@ const FilterRow = ({ age, setAge, setOpen }: FilterRowType) => {
 
     return (
         <Grid container spacing={2} columns={10} alignItems={'center'}>
-            <Grid item xs={6} />
             <Grid item xs={2}>
                 <Button
                     variant="outlined"
@@ -38,20 +31,21 @@ const FilterRow = ({ age, setAge, setOpen }: FilterRowType) => {
                     Add new
                 </Button>
             </Grid>
+            <Grid item xs={6} />
             <Grid item xs={2}>
                 <FormControl fullWidth size="small">
-                    <InputLabel id="select-label">Age Limit</InputLabel>
+                    <InputLabel id="select-label">Age limit</InputLabel>
                     <Select
                         labelId="select-label"
                         value={age}
-                        label="Age Limit"
+                        label="Age limit"
                         onChange={handleChange}
                     >
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        {ages &&
-                            ages.map((item, index) => (
+                        {data &&
+                            data.map((item, index) => (
                                 <MenuItem value={item} key={index}>
                                     {item}
                                 </MenuItem>

@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { TriggerWithoutArgs } from 'swr/mutation';
+
+import { ModificationVariant } from '@/components/ModificationModal/ModificationModal';
+
 export type Film = {
     id: number;
     title: string;
@@ -7,15 +11,18 @@ export type Film = {
     age: number;
 };
 
-export type PeopleCardType = {
-    media: string;
+export type FilmCardType = {
     item: Film;
 };
 
-export type CustomModalType = Film & {
+export type ModificationModalType = Partial<Film> & {
+    variant: ModificationVariant;
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    deleteTrigger: any;
+    setTitle: React.Dispatch<React.SetStateAction<string>>;
+    setAge: React.Dispatch<React.SetStateAction<number>>;
+    setDescription: React.Dispatch<React.SetStateAction<string>>;
+    trigger: TriggerWithoutArgs;
 };
 
 export type FilterRowType = {
@@ -24,24 +31,12 @@ export type FilterRowType = {
     age: string;
 };
 
-export type Planet = {
-    name: string;
-    rotation_period: string;
-    orbital_period: string;
-    diameter: string;
-    climate: string;
-    gravity: string;
-    terrain: string;
-    surface_water: string;
-    population: string;
-    residents: string[];
-    films: string[];
-    created: string;
-    edited: string;
-    url: string;
+export type ParamsType = {
+    age?: string;
 };
 
-export type ParamsType = {
-    page?: number;
-    search?: string;
+export type FormType = {
+    defaultAge?: number;
+    defaultTitle?: number;
+    defaultDescription?: number;
 };

@@ -1,10 +1,9 @@
 import useSWRMutation from 'swr/mutation';
 
 import { useFilms } from '@/hooks/useFilms';
-import { putRequest } from '@/utils/requests';
+import { postRequest } from '@/utils/requests';
 
-export const useEditFilm = (
-    id: number,
+export const useCreateFilm = (
     title: string,
     description: string,
     age: number,
@@ -12,8 +11,8 @@ export const useEditFilm = (
     const { mutate } = useFilms();
 
     return useSWRMutation(
-        ['film-edit'],
-        () => putRequest(`/api/film/${id}`, { title, description, age }),
+        ['film-create'],
+        () => postRequest(`/api/film`, { title, description, age }),
         { onSuccess: () => mutate() },
     );
 };
