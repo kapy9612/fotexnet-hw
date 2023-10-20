@@ -15,18 +15,17 @@ export const useForm = (
     const [description, setDescription] = useState<string>('');
     const [age, setAge] = useState<number>(0);
 
-    const { trigger, isMutating } =
-        variant === ModificationVariant.ADD
-            ? useCreateFilm(title, description, age)
-            : useEditFilm(id!, title, description, age);
+    const editFilm = useEditFilm(id!, title, description, age);
+
+    const createFilm = useCreateFilm(title, description, age);
 
     useEffect(() => {
-        if (isMutating) {
+        if (createFilm.isMutating) {
             setTitle('');
             setDescription('');
             setAge(0);
         }
-    }, [isMutating]);
+    }, [createFilm.isMutating]);
 
     useEffect(() => {
         if (defaultTitle) {
@@ -47,6 +46,9 @@ export const useForm = (
         setDescription,
         formAge: age,
         setAge,
-        trigger,
+        trigger:
+            variant === ModificationVariant.EDIT
+                ? editFilm.trigger
+                : createFilm.trigger,
     };
 };
