@@ -11,10 +11,6 @@ export type Film = {
     age: number;
 };
 
-export type FilmCardType = {
-    item: Film;
-};
-
 export type ModificationModalType = Partial<Film> & {
     variant: ModificationVariant;
     open: boolean;
@@ -33,10 +29,4 @@ export type FilterRowType = {
 
 export type ParamsType = {
     age?: string;
-};
-
-export type FormType = {
-    defaultAge?: number;
-    defaultTitle?: number;
-    defaultDescription?: number;
 };
